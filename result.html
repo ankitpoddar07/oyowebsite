@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Booking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            width: 100%;
+            height: auto;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        nav {
+            width: 95%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        nav h4 {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav ul li {
+            padding: 5px 10px;
+        }
+
+        nav ul li:nth-last-child(1),
+        nav ul li:nth-last-child(2) {
+            background: #000;
+            border-radius: 20px;
+            padding: 5px 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .bi-three-dots {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Content */
+        .content {
+            padding: 60px 0 120px;
+        }
+
+        .cont_box {
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .cont_box h1 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .cont_box p {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+
+        .cont_box button {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cont_box button:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Search Box */
+        .trip_box {
+            width: 95%;
+            margin: -60px auto 30px;
+            position: relative;
+        }
+
+        .search_box {
+            width: 90%;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .search_box .card {
+            width: 22%;
+            min-width: 150px;
+            margin-bottom: 15px;
+        }
+
+        .search_box .card h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .search_box .card h4 .bi {
+            margin-left: 5px;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .search_box input[type="text"],
+        .search_box input[type="date"],
+        .search_box input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .search_box #submit {
+            background: #0b58b4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .search_box #submit:hover {
+            background: #094a96;
+        }
+
+        /* Hotel Section */
+        .hotel_bx {
+            width: 95%;
+            max-width: 1200px;
+            margin: 40px auto;
+            display: flex;
+            gap: 20px;
+        }
+
+        .hotelFilters {
+            width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .hotelFilters h3 {
+            color: #0b58b4;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filterCard {
+            margin-bottom: 25px;
+        }
+
+        .filterCard h4 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .filterCard ul {
+            list-style: none;
+        }
+
+        .filterCard li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .filterCard li:hover span {
+            color: #0b58b4;
+        }
+
+        .filterCard li input {
+            width: 17px;
+            height: 17px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .filterCard li span {
+            font-size: 15px;
+            color: #5f5f5f;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .hotelsDetails {
+            flex: 1;
+        }
+
+        .hotelsDetails h3 {
+            color: #0b58b4;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hotelsDetails h3 span {
+            color: #333;
+            font-weight: 400;
+        }
+
+        .hotels {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+
+        .img_bx {
+            width: 160px;
+            flex-shrink: 0;
+        }
+
+        .img_bx img {
+            width: 100%;
+            border-radius: 8px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .subImages {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .subImages img {
+            width: 31%;
+            height: 30px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .content_bx {
+            flex: 1;
+        }
+
+        .content_bx h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .content_bx h5 {
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .content_bx h5 .bi {
+            color: gold;
+        }
+
+        .content_bx p {
+            font-size: 13px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .hotel_services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .hotel_services li {
+            font-size: 12px;
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 5px;
+            list-style: none;
+        }
+
+        .add {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .price_bx {
+            width: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .price_bx h5 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .price_bx h5:nth-child(1) {
+            color: #0b58b4;
+        }
+
+        .price_bx h5:nth-child(1) span {
+            background: #0b58b4;
+            color: white;
+            font-size: 11px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+
+        .price_bx h5:nth-child(2) {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        .price_bx h5:nth-child(3) {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .price_bx a {
+            background: #0b58b4;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 10px;
+            border: 1px solid #0b58b4;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .price_bx a:hover {
+            background: white;
+            color: #0b58b4;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #0b58b4;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .search_box .card {
+                width: 48%;
+            }
+            
+            .hotel_bx {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                z-index: 100;
+                transition: right 0.3s ease;
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li {
+                padding: 10px 0;
+            }
+
+            nav ul li a {
+                color: #333;
+            }
+
+            nav ul li:nth-last-child(1),
+            nav ul li:nth-last-child(2) {
+                background: #0b58b4;
+            }
+            
+            .bi-three-dots {
+                display: block;
+                z-index: 101;
+                position: relative;
+            }
+
+            .bi-three-dots.bi-x {
+                color: #333;
+            }
+            
+            .cont_box h1 {
+                font-size: 28px;
+            }
+            
+            .search_box {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .search_box .card {
+                width: 100%;
+            }
+            
+            .hotel_bx {
+                flex-direction: column;
+            }
+            
+            .hotelFilters {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cont_box {
+                padding: 20px;
+            }
+            
+            .cont_box h1 {
+                font-size: 24px;
+            }
+            
+            .cont_box p {
+                font-size: 14px;
+            }
+            
+            .cont_box button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+            
+            .search_box {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .card {
+                flex-direction: column;
+            }
+            
+            .img_bx {
+                width: 100%;
+            }
+            
+            .price_bx {
+                width: 100%;
+                align-items: flex-start;
+                margin-top: 15px;
+            }
+            
+            .price_bx h5 {
+                text-align: left;
+            }
+            
+            .price_bx a {
+                width: 100%;
+            }
+
+            .footer-section {
+                min-width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h4>TOUR.</h4>
+            <ul id="menu_box">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">Special Deals</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Register</a></li>
+            </ul>
+            <i class="bi bi-three-dots"></i>
+        </nav>
+        
+        <div class="content">
+            <div class="cont_box">
+                <h1>Discover Amazing Places Around The World</h1>
+                <p>Find and book unique travel experiences at the best prices</p>
+                <button>Explore Now</button>
+            </div>
+        </div>
+        
+        <div class="trip_box">
+            <div class="search_box">
+                <div class="card">
+                    <h4>Destination <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="text" placeholder="Where to?" id="destination">
+                </div>
+                <div class="card">
+                    <h4>Check In <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="card">
+                    <h4>Check Out <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="date" id="endDate">
+                </div>
+                <div class="card">
+                    <h4>Guests <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="number" placeholder="How many?" id="people">
+                </div>
+                <input type="button" value="Search" id="submit">
+            </div>
+        </div>
+    </header>
+    
+    <section class="hotel_bx">
+        <div class="hotelFilters">
+            <h3><i class="bi bi-funnel-fill"></i> Filters</h3>
+            <div class="filterCard">
+                <h4>Price Range</h4>
+                <ul>
+                    <li><input type="checkbox" name="price" value="1000"><span>$0 - $100</span></li>
+                    <li><input type="checkbox" name="price" value="2000"><span>$100 - $200</span></li>
+                    <li><input type="checkbox" name="price" value="3000"><span>$200 - $300</span></li>
+                    <li><input type="checkbox" name="price" value="4000"><span>$300+</span></li>
+                </ul>
+            </div>
+            <div class="filterCard">
+                <h4>Star Rating</h4>
+                <ul>
+                    <li><input type="checkbox" name="rating" value="5"><span>5 Star</span></li>
+                    <li><input type="checkbox" name="rating" value="4"><span>4 Star</span></li>
+                    <li><input type="checkbox" name="rating" value="3"><span>3 Star</span></li>
+                    <li><input type="checkbox" name="rating" value="2"><span>2 Star</span></li>
+                </ul>
+            </div>
+            <div class="filterCard">
+                <h4>Amenities</h4>
+                <ul>
+                    <li><input type="checkbox" name="amenity" value="WiFi"><span>Free WiFi</span></li>
+                    <li><input type="checkbox" name="amenity" value="Pool"><span>Pool</span></li>
+                    <li><input type="checkbox" name="amenity" value="Restaurant"><span>Restaurant</span></li>
+                    <li><input type="checkbox" name="amenity" value="Gym"><span>Gym</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="hotelsDetails">
+            <h3><i class="bi bi-buildings-fill"></i> Hotels in <span id="city">New York</span></h3>
+            <div class="hotels" id="hotels">
+                <div class="card">
+                    <div class="img_bx">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Grand Luxury Hotel">
+                        <div class="subImages">
+                            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Room">
+                            <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Pool">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Restaurant">
+                        </div>
+                    </div>
+                    <div class="content_bx">
+                        <h4>Grand Luxury Hotel</h4>
+                        <h5><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> 4.5</h5>
+                        <p>Located in the heart of the city, just 5 minutes walk from Central Park and major attractions.</p>
+                        <div class="hotel_services">
+                            <li>Free WiFi</li>
+                            <li>Breakfast</li>
+                            <li>Pool</li>
+                            <li>Gym</li>
+                        </div>
+                        <p class="add"><i class="bi bi-geo-alt-fill"></i> Downtown, New York</p>
+                    </div>
+                    <div class="price_bx">
+                        <h5>4.8 <span>Excellent</span></h5>
+                        <h5>$250/night</h5>
+                        <h5>Includes taxes & fees</h5>
+                        <a href="#">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="img_bx">
+                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Urban Boutique Hotel">
+                        <div class="subImages">
+                            <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Room">
+                            <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Spa">
+                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Restaurant">
+                        </div>
+                    </div>
+                    <div class="content_bx">
+                        <h4>Urban Boutique Hotel</h4>
+                        <h5><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i> 4.0</h5>
+                        <p>Modern hotel with stylish rooms and excellent service in the business district.</p>
+                        <div class="hotel_services">
+                            <li>Free WiFi</li>
+                            <li>Restaurant</li>
+                            <li>Spa</li>
+                        </div>
+                        <p class="add"><i class="bi bi-geo-alt-fill"></i> Midtown, New York</p>
+                    </div>
+                    <div class="price_bx">
+                        <h5>4.5 <span>Very Good</span></h5>
+                        <h5>$180/night</h5>
+                        <h5>Includes taxes & fees</h5>
+                        <a href="#">Book Now</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="img_bx">
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mountain View Lodge">
+                        <div class="subImages">
+                            <img src="https://images.unsplash.com/photo-1566669437685-b9e4ec5a81d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Room">
+                            <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel View">
+                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hotel Restaurant">
+                        </div>
+                    </div>
+                    <div class="content_bx">
+                        <h4>Mountain View Lodge</h4>
+                        <h5><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i> 3.5</h5>
+                        <p>Cozy lodge with breathtaking mountain views and rustic charm.</p>
+                        <div class="hotel_services">
+                            <li>Free WiFi</li>
+                            <li>Restaurant</li>
+                            <li>Scenic Views</li>
+                        </div>
+                        <p class="add"><i class="bi bi-geo-alt-fill"></i> Upstate New York</p>
+                    </div>
+                    <div class="price_bx">
+                        <h5>4.2 <span>Very Good</span></h5>
+                        <h5>$150/night</h5>
+                        <h5>Includes taxes & fees</h5>
+                        <a href="#">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Center</a></li>
+                    <li><a href="#">Travel Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Help</h3>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Customer Support</a></li>
+                    <li><a href="#">Booking Guide</a></li>
+                    <li><a href="#">Cancellation Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><a href="#">+1 (555) 123-4567</a></li>
+                    <li><a href="#">support@tour.com</a></li>
+                    <li><a href="#">Live Chat</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="bi bi-pinterest"></i> Pinterest</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 TOUR. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navigation elements
+        const menuToggle = document.querySelector('.bi-three-dots');
+        const navMenu = document.getElementById('menu_box');
+
+        // Only proceed if we have the necessary elements
+        if (!menuToggle || !navMenu) return;
+
+        // Toggle the navigation menu when the three dots icon is clicked
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+
+            // Change the icon based on menu state
+            if (navMenu.classList.contains('active')) {
+                menuToggle.classList.remove('bi-three-dots');
+                menuToggle.classList.add('bi-x');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                menuToggle.classList.remove('bi-x');
+                menuToggle.classList.add('bi-three-dots');
+                document.body.style.overflow = ''; // Enable scrolling
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && e.target !== menuToggle && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('bi-x');
+                menuToggle.classList.add('bi-three-dots');
+                document.body.style.overflow = ''; // Enable scrolling
+            }
+        });
+
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('bi-x');
+                menuToggle.classList.add('bi-three-dots');
+                document.body.style.overflow = ''; // Enable scrolling
+            }
+        });
+
+        // Responsive behavior - hide/show menu toggle based on screen size
+        function handleResponsiveMenu() {
+            if (window.innerWidth <= 768) {
+                // Mobile view - hide menu by default, show toggle
+                navMenu.classList.remove('active');
+                menuToggle.style.display = 'block';
+                menuToggle.classList.remove('bi-x');
+                menuToggle.classList.add('bi-three-dots');
+                document.body.style.overflow = ''; // Ensure scrolling is enabled
+            } else {
+                // Desktop view - show menu always, hide toggle
+                navMenu.classList.remove('active');
+                menuToggle.style.display = 'none';
+            }
+        }
+
+        // Initial check
+        handleResponsiveMenu();
+
+        // Update on window resize
+        window.addEventListener('resize', handleResponsiveMenu);
+
+        // Dropdown arrow toggle
+        const dropdownArrows = document.querySelectorAll('.search_box .card h4 .bi');
+        const inputs = document.querySelectorAll('.search_box input');
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('focus', () => {
+                if (dropdownArrows[index]) {
+                    dropdownArrows[index].style.transform = 'rotate(180deg)';
+                }
+            });
+            
+            input.addEventListener('blur', () => {
+                if (dropdownArrows[index] && !input.value) {
+                    dropdownArrows[index].style.transform = 'rotate(0deg)';
+                }
+            });
+        });
+
+        // Search form functionality
+        const destination = document.getElementById('destination');
+        const startDate = document.getElementById('startDate');
+        const endDate = document.getElementById('endDate');
+        const people = document.getElementById('people');
+        const submit = document.getElementById('submit');
+        const cityElement = document.getElementById('city');
+
+        // Set default dates
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+        
+        startDate.valueAsDate = today;
+        endDate.valueAsDate = tomorrow;
+
+        // Update city display
+        if (destination.value) {
+            cityElement.textContent = destination.value;
+        }
+
+        submit.addEventListener('click', () => {
+            if (destination.value && startDate.value && endDate.value && people.value) {
+                cityElement.textContent = destination.value;
+                // In a real app, you would filter hotels based on destination
+                alert(`Searching for hotels in ${destination.value} from ${startDate.value} to ${endDate.value} for ${people.value} people`);
+            } else {
+                alert('Please fill all fields');
+            }
+        });
+
+        // Filter functionality
+        const amenityCheckboxes = document.querySelectorAll('input[name="amenity"]');
+        const priceCheckboxes = document.querySelectorAll('input[name="price"]');
+        const ratingCheckboxes = document.querySelectorAll('input[name="rating"]');
+        const hotelCards = document.querySelectorAll('.hotels .card');
+
+        function filterHotels() {
+            const selectedAmenities = Array.from(amenityCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value.toLowerCase());
+            
+            const selectedPrice = Array.from(priceCheckboxes)
+                .find(checkbox => checkbox.checked)?.value;
+            
+            const selectedRating = Array.from(ratingCheckboxes)
+                .find(checkbox => checkbox.checked)?.value;
+
+            hotelCards.forEach(card => {
+                const amenities = Array.from(card.querySelectorAll('.hotel_services li'))
+                    .map(li => li.textContent.toLowerCase());
+                
+                const priceText = card.querySelector('.price_bx h5:nth-child(2)').textContent;
+                const price = parseInt(priceText.replace(/\D/g, ''));
+                
+                const ratingText = card.querySelector('.content_bx h5').textContent;
+                const rating = parseFloat(ratingText.match(/\d+\.\d+|\d+/)[0]);
+
+                let showCard = true;
+
+                // Filter by amenities
+                if (selectedAmenities.length > 0) {
+                    showCard = selectedAmenities.every(amenity => 
+                        amenities.some(item => item.includes(amenity))
+                    );
+                }
+
+                // Filter by price
+                if (selectedPrice && showCard) {
+                    const priceRange = parseInt(selectedPrice);
+                    if (priceRange === 1000) showCard = price <= 100;
+                    else if (priceRange === 2000) showCard = price > 100 && price <= 200;
+                    else if (priceRange === 3000) showCard = price > 200 && price <= 300;
+                    else if (priceRange === 4000) showCard = price > 300;
+                }
+
+                // Filter by rating
+                if (selectedRating && showCard) {
+                    showCard = Math.floor(rating) >= parseInt(selectedRating);
+                }
+
+                card.style.display = showCard ? 'flex' : 'none';
+            });
+        }
+
+        // Add event listeners to all filter checkboxes
+        amenityCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filterHotels);
+        });
+
+        priceCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Only allow one price to be selected at a time
+                if (this.checked) {
+                    priceCheckboxes.forEach(cb => {
+                        if (cb !== this) cb.checked = false;
+                    });
+                }
+                filterHotels();
+            });
+        });
+
+        ratingCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Only allow one rating to be selected at a time
+                if (this.checked) {
+                    ratingCheckboxes.forEach(cb => {
+                        if (cb !== this) cb.checked = false;
+                    });
+                }
+                filterHotels();
+            });
+        });
+    });
+</script>
+<script src="app.js"></script>
+</body>
+</html>

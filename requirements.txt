@@ -1,0 +1,21 @@
+Requirements :
+
+1. https://www.apachefriends.org/
+
+2. https://codeigniter.com/userguide3/installation/downloads.html
+
+3. https://stackoverflow.com/questions/60442518/python-3-convert-iso-8601-to-milliseconds/60443033#60443033 :-
+   
+  [ import datetime
+    time = "2020-02-25T00:02:43.000Z"
+    date = datetime.datetime.strptime(time, '%Y-%m-%dT%H:%M:%S.%fZ')
+    timestamp = str((date - datetime.datetime(1970, 1, 1)).total_seconds()*1000)
+    print(timestamp[:-2])  ]  ...
+
+4. https://stackoverflow.com/questions/14783666/codeigniter-htaccess-and-url-rewrite-issues
+
+5. https://icons.getbootstrap.com/icons/
+
+7. http://localhost/travel/
+
+8. http://localhost/phpmyadmin/index.php?route=/sql&pos=0&db=travel&table=book
